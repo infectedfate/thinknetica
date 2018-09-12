@@ -1,7 +1,7 @@
-puts "Ваше имя?"
+puts 'Ваше имя?'
 name = gets.chomp.capitalize
 
-puts "Ваш рост?"
+puts 'Ваш рост?'
 growth = gets.to_i
 
 ideal_weight = growth - 110
