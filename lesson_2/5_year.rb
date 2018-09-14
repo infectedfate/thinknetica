@@ -4,7 +4,7 @@ def leap?(year)
 end
 
 def yday(day, month, months)
-  day = month == 1 ? day : day + months.take(month - monts.first).sum
+  month == 1 ? day : day + months.take(month - 1).sum
 end
 
 months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
