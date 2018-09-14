@@ -3,8 +3,6 @@ def leap?(year)
   (year % 400).zero? || ((year % 4).zero? && (year % 100).nonzero?)
 end
 
-# Этот метод пришлось подсмотреть, до сих пор не совсем понимаю его значение.
-
 def yday(day, month, months)
   day = month == 1 ? day : day + months.take(month - monts.first).sum
 end
