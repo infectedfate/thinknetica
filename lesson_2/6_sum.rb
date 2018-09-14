@@ -19,8 +19,7 @@ end
 total = 0
 
 goods.each do |name_of_product, value|
-  sum = 0
-  sum += value[:price_of_product] * value[:quantity_of_product]
+  sum = value[:price_of_product] * value[:quantity_of_product]
   total += value[:price_of_product] * value[:quantity_of_product]
 
   puts "Товар #{name_of_product}:"
