@@ -20,35 +20,34 @@ class Station
 end
 
 class Route
-  attr_reader :stations
+  attr_reader :way
 
   def initialize(starting_station, ending_station)
-    @stations = [starting_station, ending_station]
+    @way = [starting_station, ending_station]
   end
 
   def add_stopping(stopping)
-    @stations.insert(-2, stopping)
+    @way.insert(-2, stopping)
   end
 
   def delete_stopping(stopping)
-    @stations.delete(stopping)
+    @way.delete(stopping)
   end
 
   def route
-    @stations.each { |station| puts station }
+    @way.each { |station| puts station }
   end
 end
 
 class Train
   attr_accessor :speed, :route, :location
-  attr_reader :railway_carriage
+  attr_reader :railway_carriage, :index
 
   def initialize(number, type, railway_carriage)
     @number = number
     @type = type
     @railway_carriage = railway_carriage
     @speed = 0
-    @route = []
   end
 
   def accelerate(speed)
@@ -67,22 +66,22 @@ class Train
     @railway_carriage -= 1 if @speed.zero? && @railway_carriage != 0
   end
 
-  def take_a_route(route)
-    @route << route
+  def take_a_route=(route)
+    @route = route
     @index = 0
     current_location.take(self)
   end
 
   def current_location
-    stations[@index]
+    route.way[@index]
   end
 
   def next_location
-    route.stations[@index + 1] unless route.stations[-1]
+    route.way[@index + 1] unless route.way[-1]
   end
 
   def previous_location
-    route.stations[@index - 1] unless route.stations[0]
+    route.way[@index - 1] unless route.way[0]
   end
 
   def go_forward
