@@ -15,33 +15,32 @@ class Station
   end
 
   def sort_by_type(type)
-    @trains.map { |train| train.type == type }
+    @trains.select { |train| train.type == type }
   end
 end
 
 class Route
-  attr_reader :way
+  attr_accessor :stations
 
   def initialize(starting_station, ending_station)
-    @way = [starting_station, ending_station]
+    @stations = [starting_station, ending_station]
   end
 
   def add_stopping(stopping)
-    @way.insert(-2, stopping)
+    @stations.insert(-2, stopping)
   end
 
   def delete_stopping(stopping)
-    @way.delete(stopping)
+    @stations.delete(stopping) if [@stations.first, @stations.last].none?(stopping)
   end
 
-  def route
-    @way.each { |station| puts station }
+  def stations
+    @stations.each { |station| puts station }
   end
 end
 
 class Train
-  attr_accessor :speed, :route, :location
-  attr_reader :railway_carriage, :index
+  attr_reader :railway_carriage, :index, :speed, :stations, :location
 
   def initialize(number, type, railway_carriage)
     @number = number
@@ -50,12 +49,12 @@ class Train
     @speed = 0
   end
 
-  def accelerate(speed)
-    @speed = speed
+  def accelerate(value)
+    @speed += value
   end
 
-  def stop
-    @speed = 0
+  def decrease_speed(value)
+    @speed -= value
   end
 
   def attache
@@ -66,29 +65,41 @@ class Train
     @railway_carriage -= 1 if @speed.zero? && @railway_carriage != 0
   end
 
-  def take_a_route=(route)
-    @route = route
+  def take_a_route=(stations)
+    @stations = stations
     @index = 0
     current_location.take(self)
   end
 
   def current_location
-    route.way[@index]
+    stations.stations[@index]
   end
 
   def next_location
-    route.way[@index + 1] unless route.way[-1]
+    stations.stations[@index + 1] unless last_station?
   end
 
   def previous_location
-    route.way[@index - 1] unless route.way[0]
+    stations.stations[@index - 1] unless first_station?
   end
 
   def go_forward
+    current_location.send_a_train(self)
+    next_location.take_the_train(self)
     @index += 1
   end
 
   def go_backward
+    current_location.send_a_train(self)
+    previous_location.take_the_train(self)
     @index -= 1
+  end
+
+  def last_station?
+    current_location == station.stations.last
+  end
+
+  def first_station?
+    current_location == station.stations.first
   end
 end
