@@ -58,23 +58,30 @@ class Main
   end
 
   def create_a_route
-    print 'Введите начальную станцию:'
-    first_station = gets.chomp
-    print 'Введите конечную станцию:'
-    last_station = gets.chomp
-    @routes << Route.new(first_station, last_station)
-    puts 'Маршрут создан!'
+    if @stations.size >= 2
+      @stations.each_with_index do |station, index|
+        puts "#{index} - #{station.name}"
+      end
+      print 'Введите начальную станцию:'
+      first_station = gets.to_i
+      print 'Введите конечную станцию:'
+      last_station = gets.to_i
+      @routes << Route.new(@stations[first_station], @stations[last_station])
+      puts 'Маршрут создан!'
+    else
+      'Создайте хотя бы две станции'
+    end
   end
 
   def add_station_in_route
     if !@routes.empty?
       @routes.each_with_index do |route, index|
-        puts "#{index} - #{route}"
+        puts "#{index} - #{route.name}"
       end
       puts 'Введите номер маршрута:'
       route = gets.to_i
       @stations.each_with_index do |station, index|
-        puts "#{index} - #{station}"
+        puts "#{index} - #{station.name}"
       end
       puts 'Введите номер станции:'
       station = gets.to_i
@@ -89,12 +96,12 @@ class Main
   def delete_station_from_route
     if !@routes.empty?
       @routes.each_with_index do |route, index|
-        puts "#{index} - #{route}"
+        puts "#{index} - #{route.name}"
       end
       puts 'Введите номер маршрута:'
       route = gets.to_i
       @stations.each_with_index do |station, index|
-        puts "#{index} - #{station}"
+        puts "#{index} - #{station.name}"
       end
       puts 'Введите номер станции:'
       station = gets.to_i
@@ -110,11 +117,11 @@ class Main
     if !@trains.empty? || !@routes.empty?
       @trains.each_with_index do |train, index|
         puts 'Список поездов:'
-        puts "#{index} - #{train}"
+        puts "#{index} - #{train.number}"
       end
       @routes.each_with_index do |route, index|
         puts 'Список маршрутов:'
-        puts "#{index} - #{route}"
+        puts "#{index} - #{route.name}"
       end
       puts 'Введите номер маршрута:'
       route = gets.to_i
@@ -131,7 +138,7 @@ class Main
     if !@trains.empty? 
       puts 'Список поездов:'
       @trains.each_with_index do |train, index|
-        puts "#{index} - #{train}"
+        puts "#{index} - #{train.number}"
       end
       puts 'Выберите поезд:'
       train = gets.to_i
@@ -153,7 +160,7 @@ class Main
     if !@trains.empty?
       puts 'Список поездов:'
       @trains.each_with_index do |train, index|
-        puts "#{index} - #{train}"
+        puts "#{index} - #{train.number}"
       end
       puts 'Выберите поезд:'
       train = gets.to_i
@@ -167,7 +174,7 @@ class Main
     if !@trains.empty?
       puts 'Список поездов:'
       @trains.each_with_index do |train, index|
-        puts "#{index} - #{train}"
+        puts "#{index} - #{train.number}"
       end
       puts 'Выберите поезд:'
       train = gets.to_i
@@ -181,7 +188,7 @@ class Main
     if !@trains.empty?
       puts 'Список поездов:'
       @trains.each_with_index do |train, index|
-        puts "#{index} - #{train}"
+        puts "#{index} - #{train.number}"
       end
       puts 'Выберите поезд:'
       train = gets.to_i
@@ -228,3 +235,5 @@ class Main
     end
   end
 end
+
+Main.new.menu

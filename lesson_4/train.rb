@@ -27,7 +27,7 @@ class Train
   def take_a_route(route)
     @route = route
     @index = 0
-    current_location.take(self)
+    current_location.take_the_train(self)
   end
 
   def current_location
