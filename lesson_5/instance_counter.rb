@@ -1,16 +1,25 @@
 module InstanceCounter
-
-  @@count = []
-
-  def self.instances
-    @@count
+  def self.included(base)
+    base.extend ClassMethods
+    base.send :include, InstanceMethods
   end
 
-  protected
+  module ClassMethods
 
   attr_accessor :count
 
-  def register_instance
-    @@count += ObjectSpace.each_object(self)
+    def instances
+      self.count ||= 0
+      self.count
+    end
+  end
+
+  module InstanceMethods
+
+  protected
+
+    def register_instance
+      self.class.count = self.class.instances + 1
+    end
   end
 end

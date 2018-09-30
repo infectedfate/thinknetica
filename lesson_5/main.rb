@@ -69,7 +69,7 @@ class Main
       @routes << Route.new(@stations[first_station], @stations[last_station])
       puts 'Маршрут создан!'
     else
-      'Создайте хотя бы две станции'
+      puts 'Создайте хотя бы две станции'
     end
   end
 
@@ -114,7 +114,7 @@ class Main
   end
 
   def assign_a_route
-    if !@trains.empty? || !@routes.empty?
+    if !@trains.empty? && !@routes.empty? 
       @trains.each_with_index do |train, index|
         puts 'Список поездов:'
         puts "#{index} - #{train.number}"
