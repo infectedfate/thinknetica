@@ -7,7 +7,7 @@ class Train
 
   attr_reader :speed, :route, :type, :index, :cars, :number
 
-  @@number = []
+  @@number = {}
 
   def self.find(number)
     @@number[number]
