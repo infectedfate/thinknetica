@@ -15,6 +15,8 @@ class Station
     @@instances += 1
     @name = name
     @trains = []
+    @@instances << self
+    register_instance
   end
 
   def take_the_train(train)
