@@ -72,17 +72,18 @@ class Train
     @index -= 1
   end
 
+  def valid?
+    validate!
+    true
+  rescue
+    false
+  end
+
   protected
 
   def validate!
     raise 'Номер не может быть пустым' if @number.nil?
     raise 'Указан номер невалидного формата' if @number !~ NUMBER_FORMAT
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
   end
 
   def stopped?

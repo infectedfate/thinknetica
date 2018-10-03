@@ -46,7 +46,7 @@ class Main
   end
 
   def create_a_train
-    attempt = 0
+    @attempt = 0
     puts 'Введите номер поезда'
     number = gets
 
@@ -59,7 +59,7 @@ class Main
     puts "#{type.eql?('cargo') ? 'грузовой' : 'пассажирский'} поезд с номером #{number} успешно создан"
   rescue StandardError => e
     puts "Ошибка - #{e}"
-    attempt += 1
+    @attempt += 1
     retry if attempt < 10
   end
 
@@ -93,10 +93,10 @@ class Main
       station = gets.to_i
 
       @routes[route].add_station(@stations[station])
-
     else
       puts 'Маршрутов не существует'
     end
+    
   end
 
   def delete_station_from_route
