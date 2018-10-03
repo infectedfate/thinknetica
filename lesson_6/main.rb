@@ -46,8 +46,9 @@ class Main
   end
 
   def create_a_train
+    attempt = 0
     puts 'Введите номер поезда'
-    number = gets.to_i
+    number = gets
 
     puts 'Укажите тип поезда:'
     puts '0 - пассажирский'
@@ -55,6 +56,11 @@ class Main
 
     type = gets.to_i.zero? ? 'passenger' : 'cargo'
     create_a_train!(number, type)
+    puts "#{type.eql?('cargo') ? 'грузовой' : 'пассажирский'} поезд с номером #{number} успешно создан"
+  rescue StandardError => e
+    puts "Ошибка - #{e}"
+    attempt += 1
+    retry if attempt < 10
   end
 
   def create_a_route
@@ -69,7 +75,7 @@ class Main
       @routes << Route.new(@stations[first_station], @stations[last_station])
       puts 'Маршрут создан!'
     else
-      'Создайте хотя бы две станции'
+      puts 'Создайте хотя бы две станции'
     end
   end
 
@@ -114,7 +120,7 @@ class Main
   end
 
   def assign_a_route
-    if !@trains.empty? || !@routes.empty?
+    if !@trains.empty? && !@routes.empty? 
       @trains.each_with_index do |train, index|
         puts 'Список поездов:'
         puts "#{index} - #{train.number}"
@@ -210,7 +216,6 @@ class Main
   private
 
   def info
-    
     puts 'Меню'
     puts '----------'
     puts '1. Создать станцию'
@@ -236,5 +241,3 @@ class Main
     end
   end
 end
-
-Main.new.menu
