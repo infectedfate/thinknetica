@@ -1,7 +1,8 @@
 require_relative 'instance_counter'
 
 class Station
-  NAME_FORMAT = /^[a-z0-9]{2}$/i
+  NAME_FORMAT = /^[a-z0-9]{2,}$/i
+  
   include InstanceCounter
 
   attr_reader :trains, :name
@@ -32,16 +33,16 @@ class Station
     @trains.select { |train| train.type == type }
   end
 
-  def validate!
-    raise ArgumentError, 'Аргумент должен быть строкой' if @name !~ NAME_FORMAT
-  end
-
-  protected
-
   def valid?
     validate!
     true
   rescue
     false
+  end
+
+  protected
+
+  def validate!
+    raise ArgumentError, 'Аргумент должен быть строкой' if @name !~ NAME_FORMAT
   end
 end

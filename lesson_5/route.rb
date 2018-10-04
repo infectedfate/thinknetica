@@ -9,7 +9,6 @@ class Route
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
     @name = "#{first_station.name} - #{last_station.name}"
-    validate!
     register_instance
   end
 
@@ -23,17 +22,5 @@ class Route
 
   def list_stations
     @stations.each { |station| puts station }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
-
-  protected
-  def validate!
-    raise 'Недопустимая станция' unless @first_station.is_a?(Station) && @last_station.is_a?(Station) 
   end
 end

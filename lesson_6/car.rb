@@ -5,8 +5,6 @@ class Car
 
   attr_reader :type
 
-  TYPE_FORMAT = /^[a-z0-9]{3}\-?[a-z0-9]{2}$/i
-
   def initialize(type)
     @type = type
     validate!
@@ -20,16 +18,16 @@ class Car
     @type == 'passenger'
   end
 
-  def validate!
-    raise 'Указан тип невалидного формата' if @type !~ TYPE_FORMAT
-  end
-
-  protected
-
   def valid?
     validate!
     true
   rescue
     false
+  end
+
+  protected
+
+  def validate!
+    raise 'Указан тип невалидного формата' unless type.eql?('cargo') || type.eql?('passenger')
   end
 end

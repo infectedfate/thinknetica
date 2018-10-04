@@ -46,7 +46,6 @@ class Main
   end
 
   def create_a_train
-    @attempt = 0
     puts 'Введите номер поезда'
     number = gets
 
@@ -60,7 +59,7 @@ class Main
   rescue StandardError => e
     puts "Ошибка - #{e}"
     @attempt += 1
-    retry if attempt < 10
+    retry
   end
 
   def create_a_route
@@ -96,7 +95,6 @@ class Main
     else
       puts 'Маршрутов не существует'
     end
-    
   end
 
   def delete_station_from_route
