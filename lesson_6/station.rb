@@ -2,7 +2,7 @@ require_relative 'instance_counter'
 
 class Station
   NAME_FORMAT = /^[a-z0-9]{2,}$/i
-  
+
   include InstanceCounter
 
   attr_reader :trains, :name
@@ -43,6 +43,6 @@ class Station
   protected
 
   def validate!
-    raise ArgumentError, 'Аргумент должен быть строкой' if @name !~ NAME_FORMAT
+    raise ArgumentError, 'Название должно состоять не менее чем из двух символов' if @name !~ NAME_FORMAT
   end
 end

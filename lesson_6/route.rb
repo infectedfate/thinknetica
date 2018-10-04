@@ -25,7 +25,15 @@ class Route
     @stations.each { |station| puts station }
   end
 
+  def valid?
+    validate!
+    true
+  rescue
+    false
+  end
+
   protected
+
   def validate!
     raise 'Недопустимая станция' unless @stations.first.is_a?(Station) && @stations.last.is_a?(Station)
     raise 'Начальная и конечные станции совпадают!' if @stations.first.eql?(@stations.last)
