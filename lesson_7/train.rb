@@ -1,5 +1,6 @@
 require_relative 'vendor'
 require_relative 'instance_counter'
+require_relative 'valid'
 
 class Train
 
@@ -7,6 +8,7 @@ class Train
 
   include Vendor
   include InstanceCounter
+  include Validate
 
   attr_reader :speed, :route, :type, :index, :cars, :number
 
@@ -70,13 +72,6 @@ class Train
     current_location.send_a_train(self)
     previous_location.take_the_train(self)
     @index -= 1
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   protected

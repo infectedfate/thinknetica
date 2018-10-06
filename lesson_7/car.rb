@@ -1,7 +1,9 @@
 require_relative 'vendor'
+require_relative 'valid'
 
 class Car
   include Vendor
+  include Validate
 
   attr_reader :type
 
@@ -16,13 +18,6 @@ class Car
 
   def passenger?
     @type == 'passenger'
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   protected

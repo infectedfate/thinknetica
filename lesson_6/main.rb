@@ -118,7 +118,7 @@ class Main
   end
 
   def assign_a_route
-    if !@trains.empty? && !@routes.empty? 
+    if !@trains.empty? && !@routes.empty?
       @trains.each_with_index do |train, index|
         puts 'Список поездов:'
         puts "#{index} - #{train.number}"
@@ -139,7 +139,7 @@ class Main
   end
 
   def add_the_car
-    if !@trains.empty? 
+    if !@trains.empty?
       puts 'Список поездов:'
       @trains.each_with_index do |train, index|
         puts "#{index} - #{train.number}"

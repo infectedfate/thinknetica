@@ -1,9 +1,11 @@
 require_relative 'instance_counter'
+require_relative 'valid'
 
 class Station
   NAME_FORMAT = /^[a-z0-9]{2,}$/i
 
   include InstanceCounter
+  include Validate
 
   attr_reader :trains, :name
 
@@ -31,13 +33,6 @@ class Station
 
   def sort_by_type(type)
     @trains.select { |train| train.type == type }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   protected

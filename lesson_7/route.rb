@@ -1,7 +1,9 @@
 require_relative 'instance_counter'
+require_relative 'valid'
 
 class Route
   include InstanceCounter
+  include validate
 
   attr_accessor :stations
   attr_reader :name
@@ -23,13 +25,6 @@ class Route
 
   def list_stations
     @stations.each { |station| puts station }
-  end
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
   end
 
   protected
