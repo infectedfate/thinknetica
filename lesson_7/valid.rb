@@ -5,3 +5,4 @@ module Validate
   rescue
     false
   end
+end
