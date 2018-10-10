@@ -2,7 +2,7 @@ require_relative 'instance_counter'
 require_relative 'valid'
 
 class Station
-  NAME_FORMAT = /^[a-z0-9]{2,}$/i
+  NAME_FORMAT = /^[а-яa-z0-9]{2,}$/i
 
   include InstanceCounter
   include Validate
@@ -33,6 +33,10 @@ class Station
 
   def sort_by_type(type)
     @trains.select { |train| train.type == type }
+  end
+
+  def each_train(block)
+    @trains.each { |e| block.call e }
   end
 
   protected

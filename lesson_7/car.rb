@@ -5,11 +5,22 @@ class Car
   include Vendor
   include Validate
 
-  attr_reader :type
+  attr_reader :type, :occupied_capacity, :capacity
 
-  def initialize(type)
+  def initialize(type, capacity)
     @type = type
+    @capacity = capacity
+    @occupied_capacity = 0
     validate!
+  end
+
+  def free_capacity
+    @occupied_capacity - @capacity
+  end
+
+  def occupy(value = 1)
+    @occupied_capacity += value
+    raise 'Кончилось место' unless @occupied_capacity >= @capacity
   end
 
   def cargo?

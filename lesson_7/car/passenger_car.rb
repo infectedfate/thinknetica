@@ -1,5 +1,5 @@
 class PassengerCar < Car
-  def initialize(type)
-    super(type)
+  def initialize(type, capacity)
+    super(type, capacity)
   end
 end

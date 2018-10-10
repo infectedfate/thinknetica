@@ -74,6 +74,11 @@ class Train
     @index -= 1
   end
 
+
+  def each_car(block)
+    @cars.each { |e| block_cars.call e }
+  end
+
   protected
 
   def validate!
