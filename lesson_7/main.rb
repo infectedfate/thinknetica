@@ -34,6 +34,9 @@ class Main
       when 9 then move_train_forward
       when 10 then move_train_backward
       when 11 then show
+      when 12 then
+      when 13 then
+      when 14 then
       when 0 then break
       end
     end
@@ -108,9 +111,7 @@ class Main
       end
       puts 'Введите номер станции:'
       station = gets.to_i
-
       @routes[route].delete_station(@stations[station])
-
     else
       puts 'Маршрутов не существует'
     end
@@ -160,9 +161,9 @@ class Main
       else
         puts 'Неизвестный тип вагона'
       end
+    else
+      puts 'Поезда пока не созданы'
     end
-  else
-    puts 'Поезда пока не созданы'
   end
 
   def delete_the_car
@@ -232,6 +233,9 @@ class Main
     puts '9. Переместить поезд вперед по маршруту'
     puts '10. Переместить поезд назад по маршруту'
     puts '11. Показать станции и поезда'
+    puts '12. Вывести список вагонов у поезда'
+    puts '13. Вывести список поездов на станции'
+    puts '14. Загрузить или заполнить вагон'
     puts '0. Выход'
   end
 
