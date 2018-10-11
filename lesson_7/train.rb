@@ -41,7 +41,7 @@ class Train
   end
 
   def unhook_the_car(car)
-    @cars.delete(car) if stopped? && @cars.empty? == true
+    @cars.delete(car) if stopped? && !@cars.empty?
   end
 
   def take_a_route(route)

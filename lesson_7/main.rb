@@ -146,17 +146,23 @@ class Main
       puts 'Выберите поезд:'
       train = gets.to_i
       if @trains[train].passenger?
-        passenger_car = PassengerCar.new
-        @trains[train.attach_the_car(passenger_car)]
+        puts 'Укажите количество мест:'
+        capacity = gets.to_i
+        passenger_car = PassengerCar.new(capacity)
+        @trains[train].attach_the_car(passenger_car)
+        puts 'Пассажирский вагон успешно создан!'
       elsif @trains[train].cargo?
-        cargo_car = CargoCar.new
-        @trains[train.attach_the_car(cargo_car)]
+        puts 'Укажите объем вагона'
+        capacity = gets.to_i
+        cargo_car = CargoCar.new(capacity)
+        @trains[train].attach_the_car(cargo_car)
+        puts 'Грузовой вагон успешно создан!'
       else
         puts 'Неизвестный тип вагона'
       end
-    else
       puts 'Поезда пока не созданы'
     end
+  else
   end
 
   def delete_the_car
@@ -167,7 +173,7 @@ class Main
       end
       puts 'Выберите поезд:'
       train = gets.to_i
-      @trains[train].unhook_the_car if train.stopped?
+      @trains[train].unhook_the_car if @trains[train].stopped?
     else
       puts 'Поезда пока не созданы'
     end
