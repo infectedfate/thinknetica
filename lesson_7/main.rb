@@ -160,9 +160,9 @@ class Main
       else
         puts 'Неизвестный тип вагона'
       end
-      puts 'Поезда пока не созданы'
     end
   else
+    puts 'Поезда пока не созданы'
   end
 
   def delete_the_car
