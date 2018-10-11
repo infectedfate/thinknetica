@@ -20,7 +20,7 @@ class Car
 
   def occupy(value = 1)
     @occupied_capacity += value
-    raise 'Кончилось место' unless @occupied_capacity >= @capacity
+    raise 'Кончилось место' if @occupied_capacity >= @capacity
   end
 
   def cargo?
