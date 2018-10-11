@@ -47,7 +47,7 @@ class Main
 
   def create_a_train
     puts 'Введите номер поезда'
-    number = gets
+    number = gets.chomp!
 
     puts 'Укажите тип поезда:'
     puts '0 - пассажирский'
@@ -58,7 +58,6 @@ class Main
     puts "#{type.eql?('cargo') ? 'грузовой' : 'пассажирский'} поезд с номером #{number} успешно создан"
   rescue StandardError => e
     puts "Ошибка - #{e}"
-    @attempt += 1
     retry
   end
 
@@ -146,10 +145,10 @@ class Main
       end
       puts 'Выберите поезд:'
       train = gets.to_i
-      if @trains[train.type] == train.passenger? && train.stopped?
+      if @trains[train].passenger?
         passenger_car = PassengerCar.new
         @trains[train.attach_the_car(passenger_car)]
-      elsif @trains[train.type] == train.cargo? && train.stopped?
+      elsif @trains[train].cargo?
         cargo_car = CargoCar.new
         @trains[train.attach_the_car(cargo_car)]
       else

@@ -79,23 +79,23 @@ class Train
     @cars.each { |e| block_cars.call e }
   end
 
-  protected
-
-  def validate!
-    raise 'Номер не может быть пустым' if @number.nil?
-    raise 'Указан номер невалидного формата' if @number !~ NUMBER_FORMAT
-  end
-
-  def stopped?
-    @speed.zero?
-  end
-
   def cargo?
     @type == 'cargo'
   end
 
   def passenger?
     @type == 'passenger'
+  end
+
+  protected
+
+  def validate!
+    raise 'Номер не может быть пустым' if @number.nil?
+    raise 'Пожалуйста, введите номер формата ХХХ-ХХ' if @number !~ NUMBER_FORMAT
+  end
+
+  def stopped?
+    @speed.zero?
   end
 
   def init_speed

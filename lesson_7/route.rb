@@ -3,7 +3,7 @@ require_relative 'valid'
 
 class Route
   include InstanceCounter
-  include validate
+  include Validate
 
   attr_accessor :stations
   attr_reader :name
