@@ -36,7 +36,7 @@ class Station
   end
 
   def each_train(block)
-    @trains.each { |e| block.call e }
+    @trains.each { |train| block.call train }
   end
 
   protected

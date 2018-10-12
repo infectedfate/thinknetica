@@ -76,7 +76,7 @@ class Train
 
 
   def each_car(block)
-    @cars.each { |e| block_cars.call e }
+    @cars.each { |car| block_cars.call car }
   end
 
   def cargo?

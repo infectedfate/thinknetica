@@ -33,10 +33,8 @@ class Main
       when 8 then delete_the_car
       when 9 then move_train_forward
       when 10 then move_train_backward
-      when 11 then show
-      when 12 then
-      when 13 then
-      when 14 then
+      when 11 then show_stations
+      when 12 then load_car
       when 0 then break
       end
     end
@@ -208,7 +206,7 @@ class Main
     end
   end
 
-  def show
+  def show_trains_on_station
     @stations.each do |station|
       puts station.name
       station.trains.each do |train|
@@ -217,6 +215,52 @@ class Main
     end
   end
 
+  def show_cars(train)
+    puts "#{train.type} поезд c номером #{train.number}, кол-во вагонов #{train.cars.size}"
+    train.each_car do |car, i|
+      if car.cargo?
+        puts "#{car.type} вагон №#{i}"
+        puts "Свободный объем: #{car.free_capacity}"
+        puts "Занято: #{car.occupied_capacity}"
+      else
+        puts "#{car.type} вагон №#{i}"
+        puts "Свободного места: #{car.free_capacity}"
+        puts "Занято: #{car.occupied_capacity}"
+      end
+    end
+  end
+
+  def show_stations
+    block = proc { |train| show_cars train }
+
+    @stations.each do |station|
+      puts "Станция: #{station.name.capitalize}"
+      station.each_train block
+    end
+  end
+
+  def load_car
+    puts 'Список поездов:'
+    trains.each_with_index do |train, index|
+      puts "#{index} - #{train.number}"
+    end
+    puts 'Введите номер поезда:'
+    train = gets.to_i
+    @trains[train].cars.each_with_index do |car, index|
+      puts "Список вагонов поезда:"
+      puts "#{index} - #{car.type}"
+    end
+    puts "Введите номер вагона:"
+    car = gets.to_i
+    if @trains[train].cars[car].cargo?
+      puts 'объем: '
+      @trains[train].cars[car].occupy(gets.to_i)
+      puts 'вагон успешно загружен'
+    else
+      @trains[train].cars[car].occupy
+      puts 'место успешно занято'
+    end
+  end
   private
 
   def info
@@ -232,10 +276,8 @@ class Main
     puts '8. Отцепить вагон от поезда'
     puts '9. Переместить поезд вперед по маршруту'
     puts '10. Переместить поезд назад по маршруту'
-    puts '11. Показать станции и поезда'
-    puts '12. Вывести список вагонов у поезда'
-    puts '13. Вывести список поездов на станции'
-    puts '14. Загрузить или заполнить вагон'
+    puts '11. Вывести список поездов на станции и вагонов у поезда'
+    puts '12. Загрузить или заполнить вагон'
     puts '0. Выход'
   end
 
