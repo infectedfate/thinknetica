@@ -3,7 +3,6 @@ require_relative 'instance_counter'
 require_relative 'valid'
 
 class Train
-
   NUMBER_FORMAT = /^[a-z0-9]{3}\-?[a-z0-9]{2}$/i
 
   include Vendor
@@ -74,9 +73,8 @@ class Train
     @index -= 1
   end
 
-
   def each_car(block)
-    @cars.each { |car| block_cars.call car }
+    @cars.each { |car| block.call car }
   end
 
   def cargo?
@@ -109,5 +107,4 @@ class Train
   def first_station?
     current_location == route.stations.first
   end
-
 end

@@ -10,6 +10,20 @@ require_relative 'car/passenger_car'
 class Main
   attr_reader :trains, :routes, :stations
 
+  MENU = {
+    1 => create_a_station,
+    2 => create_a_train,
+    3 => create_a_route,
+    4 => add_station_in_route,
+    5 => delete_station_from_route,
+    6 => assign_a_route,
+    7 => add_the_car,
+    8 => delete_the_car,
+    9 => move_train_forward,
+    10 => move_train_backward,
+    11 => show_stations,
+    12 => load_car
+  }
   def initialize
     @trains = []
     @routes = []
@@ -20,23 +34,7 @@ class Main
     loop do
       info
       puts 'Введите пункт меню:'
-      choice = gets.to_i
-
-      case choice
-      when 1 then create_a_station
-      when 2 then create_a_train
-      when 3 then create_a_route
-      when 4 then add_station_in_route
-      when 5 then delete_station_from_route
-      when 6 then assign_a_route
-      when 7 then add_the_car
-      when 8 then delete_the_car
-      when 9 then move_train_forward
-      when 10 then move_train_backward
-      when 11 then show_stations
-      when 12 then load_car
-      when 0 then break
-      end
+      MENU[point] = gets.to_i
     end
   end
 
@@ -219,13 +217,11 @@ class Main
     puts "#{train.type} поезд c номером #{train.number}, кол-во вагонов #{train.cars.size}"
     train.each_car do |car, i|
       if car.cargo?
-        puts "#{car.type} вагон №#{i}"
-        puts "Свободный объем: #{car.free_capacity}"
+        puts "#{car.type} вагон №#{i} Свободный объем: #{car.free_capacity}"
         puts "Занято: #{car.occupied_capacity}"
       else
         puts "#{car.type} вагон №#{i}"
-        puts "Свободного места: #{car.free_capacity}"
-        puts "Занято: #{car.occupied_capacity}"
+        puts "Свободного места: #{car.free_capacity}Занято: #{car.occupied_capacity}"
       end
     end
   end
@@ -247,10 +243,10 @@ class Main
     puts 'Введите номер поезда:'
     train = gets.to_i
     @trains[train].cars.each_with_index do |car, index|
-      puts "Список вагонов поезда:"
+      puts 'Список вагонов поезда:'
       puts "#{index} - #{car.type}"
     end
-    puts "Введите номер вагона:"
+    puts 'Введите номер вагона:'
     car = gets.to_i
     if @trains[train].cars[car].cargo?
       puts 'объем: '
@@ -261,6 +257,7 @@ class Main
       puts 'место успешно занято'
     end
   end
+
   private
 
   def info

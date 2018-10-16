@@ -5,7 +5,6 @@ module InstanceCounter
   end
 
   module ClassMethods
-
     attr_writer :instances
 
     def instances
@@ -14,7 +13,6 @@ module InstanceCounter
   end
 
   module InstanceMethods
-
     protected
 
     def register_instance
