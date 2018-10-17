@@ -1,3 +1,5 @@
+require_relative 'menu'
+require_relative 'helpers'
 require_relative 'route'
 require_relative 'station'
 require_relative 'train'
@@ -8,34 +10,15 @@ require_relative 'car/cargo_car'
 require_relative 'car/passenger_car'
 
 class Main
+  include Menu
+  include Helpers
+
   attr_reader :trains, :routes, :stations
 
-  MENU = {
-    1 => create_a_station,
-    2 => create_a_train,
-    3 => create_a_route,
-    4 => add_station_in_route,
-    5 => delete_station_from_route,
-    6 => assign_a_route,
-    7 => add_the_car,
-    8 => delete_the_car,
-    9 => move_train_forward,
-    10 => move_train_backward,
-    11 => show_stations,
-    12 => load_car
-  }
   def initialize
     @trains = []
     @routes = []
     @stations = []
-  end
-
-  def menu
-    loop do
-      info
-      puts 'Введите пункт меню:'
-      MENU[point] = gets.to_i
-    end
   end
 
   def create_a_station
@@ -62,9 +45,7 @@ class Main
 
   def create_a_route
     if @stations.size >= 2
-      @stations.each_with_index do |station, index|
-        puts "#{index} - #{station.name}"
-      end
+      stations_list
       print 'Введите начальную станцию:'
       first_station = gets.to_i
       print 'Введите конечную станцию:'
@@ -78,14 +59,10 @@ class Main
 
   def add_station_in_route
     if !@routes.empty?
-      @routes.each_with_index do |route, index|
-        puts "#{index} - #{route.name}"
-      end
+      routes_list
       puts 'Введите номер маршрута:'
       route = gets.to_i
-      @stations.each_with_index do |station, index|
-        puts "#{index} - #{station.name}"
-      end
+      stations_list
       puts 'Введите номер станции:'
       station = gets.to_i
 
@@ -97,14 +74,10 @@ class Main
 
   def delete_station_from_route
     if !@routes.empty?
-      @routes.each_with_index do |route, index|
-        puts "#{index} - #{route.name}"
-      end
+      routes_list
       puts 'Введите номер маршрута:'
       route = gets.to_i
-      @stations.each_with_index do |station, index|
-        puts "#{index} - #{station.name}"
-      end
+
       puts 'Введите номер станции:'
       station = gets.to_i
       @routes[route].delete_station(@stations[station])
@@ -115,14 +88,8 @@ class Main
 
   def assign_a_route
     if !@trains.empty? && !@routes.empty?
-      @trains.each_with_index do |train, index|
-        puts 'Список поездов:'
-        puts "#{index} - #{train.number}"
-      end
-      @routes.each_with_index do |route, index|
-        puts 'Список маршрутов:'
-        puts "#{index} - #{route.name}"
-      end
+      trains_list
+      routes_list
       puts 'Введите номер маршрута:'
       route = gets.to_i
       puts 'Введите номер поезда:'
@@ -136,10 +103,7 @@ class Main
 
   def add_the_car
     if !@trains.empty?
-      puts 'Список поездов:'
-      @trains.each_with_index do |train, index|
-        puts "#{index} - #{train.number}"
-      end
+      trains_list
       puts 'Выберите поезд:'
       train = gets.to_i
       if @trains[train].passenger?
@@ -164,13 +128,10 @@ class Main
 
   def delete_the_car
     if !@trains.empty?
-      puts 'Список поездов:'
-      @trains.each_with_index do |train, index|
-        puts "#{index} - #{train.number}"
-      end
+      trains_list
       puts 'Выберите поезд:'
       train = gets.to_i
-      @trains[train].unhook_the_car if @trains[train].stopped?
+      @trains[train].unhook_the_car
     else
       puts 'Поезда пока не созданы'
     end
@@ -178,10 +139,7 @@ class Main
 
   def move_train_forward
     if !@trains.empty?
-      puts 'Список поездов:'
-      @trains.each_with_index do |train, index|
-        puts "#{index} - #{train.number}"
-      end
+      trains_list
       puts 'Выберите поезд:'
       train = gets.to_i
       @trains[train].go_forward
@@ -192,10 +150,7 @@ class Main
 
   def move_train_backward
     if !@trains.empty?
-      puts 'Список поездов:'
-      @trains.each_with_index do |train, index|
-        puts "#{index} - #{train.number}"
-      end
+      trains_list
       puts 'Выберите поезд:'
       train = gets.to_i
       @trains[train].go_backward
@@ -226,7 +181,7 @@ class Main
     end
   end
 
-  def show_stations
+  def full_information
     block = proc { |train| show_cars train }
 
     @stations.each do |station|
@@ -236,47 +191,23 @@ class Main
   end
 
   def load_car
-    puts 'Список поездов:'
-    trains.each_with_index do |train, index|
-      puts "#{index} - #{train.number}"
-    end
+    trains_list
     puts 'Введите номер поезда:'
     train = gets.to_i
-    @trains[train].cars.each_with_index do |car, index|
-      puts 'Список вагонов поезда:'
-      puts "#{index} - #{car.type}"
-    end
+    cars_list
     puts 'Введите номер вагона:'
     car = gets.to_i
     if @trains[train].cars[car].cargo?
-      puts 'объем: '
+      puts 'Объем: '
       @trains[train].cars[car].occupy(gets.to_i)
-      puts 'вагон успешно загружен'
+      puts 'Вагон успешно загружен'
     else
       @trains[train].cars[car].occupy
-      puts 'место успешно занято'
+      puts 'Место успешно занято'
     end
   end
 
   private
-
-  def info
-    puts 'Меню'
-    puts '----------'
-    puts '1. Создать станцию'
-    puts '2. Создать поезд'
-    puts '3. Создать маршрут'
-    puts '4. Добавить станцию в маршрут'
-    puts '5. Удалить станцию из маршрута'
-    puts '6. Назначить маршрут поезду'
-    puts '7. Добавить вагон к поезду'
-    puts '8. Отцепить вагон от поезда'
-    puts '9. Переместить поезд вперед по маршруту'
-    puts '10. Переместить поезд назад по маршруту'
-    puts '11. Вывести список поездов на станции и вагонов у поезда'
-    puts '12. Загрузить или заполнить вагон'
-    puts '0. Выход'
-  end
 
   def create_a_train!(number, type)
     case type
