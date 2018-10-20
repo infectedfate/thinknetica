@@ -1,13 +1,13 @@
 require_relative 'vendor'
 require_relative 'instance_counter'
-require_relative 'valid'
+require_relative 'validation'
 
 class Train
   NUMBER_FORMAT = /^[a-z0-9]{3}\-?[a-z0-9]{2}$/i
 
   include Vendor
   include InstanceCounter
-  include Validate
+  include Validation
 
   attr_reader :speed, :route, :type, :index, :cars, :number
 

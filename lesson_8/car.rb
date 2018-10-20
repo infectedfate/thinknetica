@@ -1,9 +1,9 @@
 require_relative 'vendor'
-require_relative 'valid'
+require_relative 'validation'
 
 class Car
   include Vendor
-  include Validate
+  include Validation
 
   attr_reader :type, :occupied_capacity, :capacity
 

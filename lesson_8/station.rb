@@ -1,11 +1,11 @@
 require_relative 'instance_counter'
-require_relative 'valid'
+require_relative 'validation'
 
 class Station
   NAME_FORMAT = /^[а-яa-z0-9]{2,}$/i
 
   include InstanceCounter
-  include Validate
+  include Validation
 
   attr_reader :trains, :name
 
