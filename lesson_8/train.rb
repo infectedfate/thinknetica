@@ -1,6 +1,8 @@
 require_relative 'vendor'
 require_relative 'instance_counter'
 require_relative 'validation'
+require_relative 'accessors'
+
 
 class Train
   NUMBER_FORMAT = /^[a-z0-9]{3}\-?[a-z0-9]{2}$/i
@@ -8,8 +10,16 @@ class Train
   include Vendor
   include InstanceCounter
   include Validation
+  include Accessors
+
 
   attr_reader :speed, :route, :type, :index, :cars, :number
+
+  strong_attr_accessor :number, Integer
+  strong_attr_accessor :speed, Integer
+  strong_attr_accessor :route, Route
+
+  validate :type, :prescense
 
   @@number = {}
 
@@ -19,7 +29,6 @@ class Train
 
   def initialize(number, type)
     @number = number
-    validate!
     @type = type
     @speed = init_speed
     @cars = []

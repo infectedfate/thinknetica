@@ -1,13 +1,20 @@
 require_relative 'instance_counter'
 require_relative 'validation'
+require_relative 'accessors'
+
 
 class Station
   NAME_FORMAT = /^[а-яa-z0-9]{2,}$/i
 
   include InstanceCounter
   include Validation
+  include Accessors
+
 
   attr_reader :trains, :name
+
+  validate :name, :presence
+  validate :name, :format, NAME_FORMAT
 
   @@stations = []
 
@@ -17,7 +24,6 @@ class Station
 
   def initialize(name)
     @name = name
-    validate!
     @trains = []
     @@stations << self
     register_instance
