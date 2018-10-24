@@ -26,6 +26,7 @@ class Station
     @name = name
     @trains = []
     @@stations << self
+    validate!
     register_instance
   end
 
@@ -43,11 +44,5 @@ class Station
 
   def each_train(block)
     @trains.each { |train| block.call train }
-  end
-
-  protected
-
-  def validate!
-    raise ArgumentError, 'Название должно состоять не менее чем из двух символов' if @name !~ NAME_FORMAT
   end
 end

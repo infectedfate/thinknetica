@@ -20,6 +20,7 @@ class Train
   strong_attr_accessor :route, Route
 
   validate :type, :prescense
+  validate :number, :format, NUMBER_FORMAT
 
   @@number = {}
 
@@ -33,6 +34,7 @@ class Train
     @speed = init_speed
     @cars = []
     @@number[number] = self
+    validate!
     register_instance
   end
 
@@ -95,11 +97,6 @@ class Train
   end
 
   protected
-
-  def validate!
-    raise 'Номер не может быть пустым' if @number.nil?
-    raise 'Пожалуйста, введите номер формата ХХХ-ХХ' if @number !~ NUMBER_FORMAT
-  end
 
   def stopped?
     @speed.zero?

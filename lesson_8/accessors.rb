@@ -7,8 +7,10 @@ module Accessors
     name_sym = "@#{name}".to_sym
 
     define_method(name) { instance_variable_get(name_sym) }
-    define_method("#{name_sym}=".to_sym) { instance_variable_set(name_sym, value) }
-    raise 'Неверный тип' if value.is_a?(class_of)
+    define_method("#{name}=".to_sym) do |name, value|
+      instance_variable_set(name, value)
+      raise 'Неверный тип' if value.is_a?(class_of)
+    end
   end
 
   private
@@ -26,7 +28,7 @@ module Accessors
       end
       instance_variable_set(name_sym, value)
     end
-    define_method("#{name}_history".to_sym) { instance_variable_get(hystory) }
+    define_method("#{name}_history".to_sym) { instance_variable_get(history) }
   end
 
 end

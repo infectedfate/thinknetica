@@ -5,7 +5,6 @@ require_relative 'accessors'
 class Car
   include Vendor
   include Validation
-  include Accessors
 
   attr_reader :type, :occupied_capacity, :capacity
 
@@ -15,7 +14,7 @@ class Car
     @type = type
     @capacity = capacity
     @occupied_capacity = 0
-    type
+    validate!
   end
 
   def free_capacity
@@ -33,11 +32,5 @@ class Car
 
   def passenger?
     @type == 'passenger'
-  end
-
-  protected
-
-  def validate!
-    raise 'Указан тип невалидного формата' unless type.eql?('cargo') || type.eql?('passenger')
   end
 end
