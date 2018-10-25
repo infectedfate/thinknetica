@@ -7,7 +7,7 @@ module Validation
   module ClassMethods
     attr_reader :validations
 
-    def self.validate(name, type, *args)
+    def validate(name, type, *args)
       @validations = []
       @validations << { name: name, type: type, args: args }
     end
@@ -31,7 +31,7 @@ module Validation
 
     protected
 
-    def prescence(value, _args)
+    def presence(value, _args)
       raise 'Значение не может быть пустым' unless value.nil? || value.empty?
     end
 

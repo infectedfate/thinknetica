@@ -17,7 +17,7 @@ class Train
   strong_attr_accessor :speed, Integer
   strong_attr_accessor :route, Route
 
-  validate :type, :prescense
+  validate :type, :presence
   validate :number, :format, NUMBER_FORMAT
 
   @@number = {}

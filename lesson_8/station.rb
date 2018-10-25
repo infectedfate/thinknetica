@@ -13,7 +13,7 @@ class Station
 
   attr_reader :trains, :name
 
-  validate :name, :presсence
+  validate :name, :presence
   validate :name, :format, NAME_FORMAT
 
   @@stations = []
