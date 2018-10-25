@@ -9,6 +9,7 @@ class Car
   attr_reader :type, :occupied_capacity, :capacity
 
   validate :type, :presence
+  validate :capacity, :presence
 
   def initialize(type, capacity)
     @type = type

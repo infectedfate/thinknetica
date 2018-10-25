@@ -7,9 +7,9 @@ module Accessors
     name_sym = "@#{name}".to_sym
 
     define_method(name) { instance_variable_get(name_sym) }
-    define_method("#{name}=".to_sym) do |name, value|
-      instance_variable_set(name, value)
+    define_method("#{name}=".to_sym) do |value|
       raise 'Неверный тип' if value.is_a?(class_of)
+      instance_variable_set(name_sym, value)
     end
   end
 
