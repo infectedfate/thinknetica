@@ -1,6 +1,6 @@
 require_relative 'instance_counter'
-require_relative 'validation'
 require_relative 'accessors'
+require_relative 'validation'
 
 
 class Station
@@ -8,12 +8,12 @@ class Station
 
   include InstanceCounter
   include Validation
-  include Accessors
+  extend Accessors
 
 
   attr_reader :trains, :name
 
-  validate :name, :presence
+  validate :name, :presсence
   validate :name, :format, NAME_FORMAT
 
   @@stations = []
