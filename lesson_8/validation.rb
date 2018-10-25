@@ -5,6 +5,8 @@ module Validation
   end
 
   module ClassMethods
+    attr_reader :validations
+
     def self.validate(name, type, *args)
       @validations = []
       @validations << { name: name, type: type, args: args }
@@ -15,8 +17,8 @@ module Validation
 
     def validate!
       self.class.validations.each do |validation|
-        attribute_value = instance_variable_get("#{validation[:name]}")
-        send(validation[:name].to_sym, type, validation[:args])
+        attribute_value = instance_variable_get("@#{validation[:name]}")
+        send(validation[:type].to_sym, value, validation[:args])
       end
     end
 

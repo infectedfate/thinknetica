@@ -3,15 +3,13 @@ require_relative 'instance_counter'
 require_relative 'validation'
 require_relative 'accessors'
 
-
 class Train
   NUMBER_FORMAT = /^[a-z0-9]{3}\-?[a-z0-9]{2}$/i
 
   include Vendor
   include InstanceCounter
   include Validation
-  include Accessors
-
+  extend Accessors
 
   attr_reader :speed, :route, :type, :index, :cars, :number
 

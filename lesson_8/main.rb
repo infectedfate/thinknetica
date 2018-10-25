@@ -1,7 +1,7 @@
 require_relative 'menu'
 require_relative 'helpers'
-require_relative 'route'
 require_relative 'station'
+require_relative 'route'
 require_relative 'train'
 require_relative 'train/cargo_train'
 require_relative 'train/passenger_train'
