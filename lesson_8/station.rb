@@ -4,7 +4,7 @@ require_relative 'validation'
 
 
 class Station
-  NAME_FORMAT = /^[а-яa-z0-9]{2,}$/i
+  NAME_FORMAT = /^[а-яa-z0-9]{3,}$/i
 
   include InstanceCounter
   include Validation

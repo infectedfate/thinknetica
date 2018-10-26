@@ -38,9 +38,9 @@ class Main
     type = gets.to_i.zero? ? 'passenger' : 'cargo'
     create_a_train!(number, type)
     puts "#{type.eql?('cargo') ? 'грузовой' : 'пассажирский'} поезд с номером #{number} успешно создан"
-  rescue StandardError => e
-    puts "Ошибка - #{e}"
-    retry
+  # rescue StandardError => e
+  #  puts "Ошибка - #{e}"
+  #  retry
   end
 
   def create_a_route
