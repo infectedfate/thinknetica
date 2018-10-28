@@ -6,16 +6,16 @@ class Car
   include Vendor
   include Validation
 
-  attr_reader :type, :occupied_capacity, :capacity
+  attr_reader :car_type, :occupied_capacity, :capacity
 
-  validate :type, :presence
+  validate :car_type, :presence
   validate :capacity, :presence
 
   def initialize(type, capacity)
-    @type = type
+    @car_type = type
     @capacity = capacity
-    @occupied_capacity = 0
     validate!
+    @occupied_capacity = 0
   end
 
   def free_capacity
@@ -28,10 +28,10 @@ class Car
   end
 
   def cargo?
-    @type == 'cargo'
+    @car_type == 'cargo'
   end
 
   def passenger?
-    @type == 'passenger'
+    @car_type == 'passenger'
   end
 end
