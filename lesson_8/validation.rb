@@ -8,8 +8,9 @@ module Validation
     def validations
       @validations ||= []
     end
+
     def validate(name, type, options = nil)
-    self.validations << { name: name, type: type, args: options }
+      self.validations << { name: name, type: type, args: options }
     end
   end
 
