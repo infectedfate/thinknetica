@@ -15,7 +15,6 @@ module Validation
   end
 
   module InstanceMethods
-
     def validate!
       self.class.validations.each do |validation|
         argument_value = instance_variable_get("@#{validation[:name]}")
