@@ -1,5 +1,4 @@
 class CargoTrain < Train
-  include Validation
 
   validate :number, :presence
   validate :number, :format, NUMBER_FORMAT

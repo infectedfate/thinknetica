@@ -1,5 +1,4 @@
 class PassengerCar < Car
-  include Validation
 
   validate :capacity, :presence
 

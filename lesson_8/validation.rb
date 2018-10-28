@@ -5,11 +5,11 @@ module Validation
   end
 
   module ClassMethods
-    attr_reader :validations
-
-    def validate(name, type, options = nil)
+    def validations
       @validations ||= []
-      @validations << { name: name, type: type, args: options }
+    end
+    def validate(name, type, options = nil)
+    self.validations << { name: name, type: type, args: options }
     end
   end
 
