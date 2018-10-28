@@ -33,7 +33,7 @@ module Validation
     protected
 
     def validate_presence(value, _args)
-      raise 'Значение не может быть пустым' if value.nil? || value.empty?
+      raise 'Значение не может быть пустым' if value.nil? || value.to_s.empty?
     end
 
     def validate_format(value, format)
