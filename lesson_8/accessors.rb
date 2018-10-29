@@ -20,7 +20,7 @@ module Accessors
     name_sym = "@#{name}".to_sym
     history = "@#{name}_history".to_sym
 
-    define_method(name) { instance_variable_get(name) }
+    define_method(name) { instance_variable_get(name_sym) }
     define_method("#{name}=".to_sym) do |value|
       if instance_variable_get(name_sym).nil?
         instance_variable_set(hystory, [])

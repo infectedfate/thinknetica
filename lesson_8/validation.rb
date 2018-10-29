@@ -10,7 +10,7 @@ module Validation
     end
 
     def validate(name, type, options = nil)
-      self.validations << { name: name, type: type, args: options }
+      validations << { name: name, type: type, args: options }
     end
   end
 

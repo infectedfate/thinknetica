@@ -82,8 +82,8 @@ class Train
     @index -= 1
   end
 
-  def each_car(block)
-    @cars.each { |car| block.call car }
+  def each_car
+    @cars.each_with_index { |car, i| yield car, i }
   end
 
   def cargo?
