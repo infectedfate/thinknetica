@@ -20,7 +20,7 @@ module Helpers
     end
   end
 
-  def cars_list
+  def cars_list(train)
     @trains[train].cars.each_with_index do |car, index|
       puts 'Список вагонов поезда:'
       puts "#{index} - #{car.type}"

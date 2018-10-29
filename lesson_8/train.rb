@@ -11,13 +11,13 @@ class Train
   include Validation
   extend Accessors
 
-  attr_reader :speed, :route, :train_type, :index, :cars, :number
+  attr_reader :speed, :route, :type, :index, :cars, :number
 
   strong_attr_accessor :number, Integer
   strong_attr_accessor :speed, Integer
   strong_attr_accessor :route, Route
 
-  validate :train_type, :presence
+  validate :type, :presence
   validate :number, :format, NUMBER_FORMAT
 
   @@number = {}
@@ -28,7 +28,7 @@ class Train
 
   def initialize(number, type)
     @number = number
-    @train_type = type
+    @type = type
     validate!
     @speed = init_speed
     @cars = []
@@ -87,11 +87,11 @@ class Train
   end
 
   def cargo?
-    @train_type == 'cargo'
+    @type == 'cargo'
   end
 
   def passenger?
-    @train_type == 'passenger'
+    @type == 'passenger'
   end
 
   protected

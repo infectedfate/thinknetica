@@ -194,7 +194,7 @@ class Main
     trains_list
     puts 'Введите номер поезда:'
     train = gets.to_i
-    cars_list
+    cars_list(train)
     puts 'Введите номер вагона:'
     car = gets.to_i
     if @trains[train].cars[car].cargo?
